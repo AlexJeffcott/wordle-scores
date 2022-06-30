@@ -16,8 +16,10 @@ setupBackgroundSyncProcess().catch(e => {
 async function setupBackgroundSyncProcess(): Promise<void> {
   const db = await openDB()
 
-  // TODO: poll…
   await sync(db)
+  setInterval(async () => {
+    await sync(db)
+  }, 10000)
 }
 
 async function sync(db: DB): Promise<void> {

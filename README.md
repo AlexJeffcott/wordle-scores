@@ -23,7 +23,7 @@ The app needs to:
 0. Be written in TypeScript and use Preact, which is already setup for you here in this repo. 💪
 1. Periodically poll for the latest Wordle scores from the scores API. The API is described in more detail below.
 2. Notify the UI after updates in the worker: this feature is already started, but the UI doesn’t react yet.
-3. (If you have time) display the scores in the UI in a more pleasent way.
+3. (If you have time) display the scores in the UI in a more pleasant way.
 
 **Please include a `SOLUTION.md` in which you explain the design you came up with and the next improvements you'd make if you had time.**
 

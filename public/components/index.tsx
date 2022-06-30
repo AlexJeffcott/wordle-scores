@@ -4,7 +4,6 @@ import { useBackground } from '../background-context'
 import { useDB } from '../db-context'
 import { useFetched } from '../hooks/use-fetched'
 import type { Score } from '../models'
-import styles from './index.module.css'
 import { Layout } from './layout'
 import { ScoresList } from './scores-list'
 
@@ -20,7 +19,20 @@ export const Index: FunctionalComponent<Props> = ({ preloadedScores }) => {
     return db.getAll('scores')
   }, [db])
 
-  // TODO: useBackground(), subscribe for messages from the worker, and refetch()
+  const bgWorker = useBackground()
+
+  const messageHandler = (e: MessageEvent) => {
+    if (e.data.type === 'scoresUpdated') {
+      refetch()
+    }
+  }
+
+  useEffect(() => {
+    if (bgWorker) {
+      bgWorker.addEventListener('message', messageHandler)
+    }
+    return () => bgWorker?.removeEventListener('message', messageHandler)
+  }, [bgWorker, db])
 
   return (
     <Layout>

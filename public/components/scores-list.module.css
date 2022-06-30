@@ -1,5 +1,9 @@
 .list {
   list-style-type: none;
-  padding: 0;
-  margin: 0;
+  padding: 2rem 0 2rem 0;
+  margin: 0 auto 0 auto;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2rem;
+  width: fit-content;
 }
