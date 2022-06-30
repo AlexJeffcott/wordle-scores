@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+if [[ -n $(which brew) ]]; then
+  brew bundle --no-upgrade --no-lock
+fi
+
+npm i

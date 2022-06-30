@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+if [[ -z "$AUTH_TOKEN" ]]; then
+  echo 1>&2 "Must provide the AUTH_TOKEN env variable"
+  exit 2
+fi
+
+curl -i \
+  -H"X-Authorization: $AUTH_TOKEN" \
+  https://wordle.shareup.fun/scores

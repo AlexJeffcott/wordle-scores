@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+npx --yes wmr build --prerender
+
+cp -v dist/chunks/service-worker.*.js dist/

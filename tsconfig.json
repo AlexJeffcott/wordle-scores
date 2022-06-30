@@ -1,0 +1,35 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "lib": ["esnext", "dom"],
+    "jsx": "preserve",
+    "jsxFactory": "preact.h",
+    "jsxFragmentFactory": "preact.Fragment",
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+    "moduleResolution": "node",
+    "target": "esnext",
+    "module": "esnext",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "downlevelIteration": true,
+    "strict": true,
+    "skipLibCheck": true
+  },
+  "exclude": [
+    "public/service-worker.ts",
+    "public/background.ts",
+    "dist/**/*",
+    ".cache/**/*"
+  ],
+  "include": [
+    "node_modules/wmr/types.d.ts",
+    "node_modules/preact/src/index.d.ts",
+    "node_modules/preact/src/jsx.d.ts",
+    "public/**/*"
+  ],
+  "typeAcquisition": {
+    "enable": true
+  }
+}

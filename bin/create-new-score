@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+if [[ -z "$AUTH_TOKEN" ]]; then
+  echo 1>&2 "Must provide the AUTH_TOKEN env variable"
+  exit 2
+fi
+
+body='{
+  "id": 265,
+  "date": "2022-03-11",
+  "word": "treet",
+  "tries": ["bonus", "pause", "sleet"]
+}'
+
+curl -i -XPOST \
+  -H"X-Authorization: $AUTH_TOKEN" \
+  -H'Content-Type: application/json' \
+  -d"$body" \
+  https://wordle.shareup.fun/scores

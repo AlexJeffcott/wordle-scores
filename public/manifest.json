@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
+  "name": "Wordle Scores",
+  "short_name": "Wordle",
+  "description": "Show off your scores!",
+  "lang": "en",
+  "orientation": "natural",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#0074d9",
+  "background_color": "#ffffff"
+}
