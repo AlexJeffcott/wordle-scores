@@ -68,12 +68,15 @@ self.addEventListener('fetch', (e: FetchEvent) => {
       }
     } catch (err) {
       console.error('error handling fetch', err)
+      // NOTE: While we might fully expect one particular type of Error, Typescript is less sure...
+      // @ts-ignore
       console.error(err.stack)
 
       if (isHtmlRequest(e.request)) {
         // NOTE: fallback to serving the index as our offline page… it should
         // do client-side routing and work fine…
-        return caches.match('/', { cacheName })
+        const fallback = await caches.match('/', { cacheName })
+        if (fallback) return fallback
       }
 
       return new Response('error', {
@@ -90,7 +93,7 @@ self.addEventListener('fetch', (e: FetchEvent) => {
 function isHtmlRequest(request: Request): boolean {
   return request.mode === 'navigate'
     || request.destination === 'document'
-    || request.headers.get('Accept').includes('text/html')
+    || Boolean(request.headers.get('Accept')?.includes('text/html'))
 }
 
 async function getFromNetworkAndCache(e: FetchEvent): Promise<Response> {
