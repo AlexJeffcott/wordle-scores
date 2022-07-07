@@ -1,5 +1,5 @@
 import type { ScoresResponse } from './models'
-// import { getAllInitialResponse } from './test-responses'
+import { getAllInitialResponse } from './test-responses'
 
 async function getRealScoresFromNetwork() {
   const myHeaders = new Headers()
@@ -16,8 +16,8 @@ async function getRealScoresFromNetwork() {
 export async function getScores(): Promise<ScoresResponse> {
   console.debug('getting scores…')
 
-  const response = await getRealScoresFromNetwork()
-  // const response = await getAllInitialResponse()
+  // const response = await getRealScoresFromNetwork()
+  const response = await getAllInitialResponse()
 
   if (response.ok) {
     const json = await response.json()
