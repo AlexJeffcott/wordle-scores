@@ -1,5 +1,5 @@
 import type { FunctionalComponent } from 'preact'
-import { useEffect } from 'preact/hooks'
+import { useCallback, useEffect } from 'preact/hooks'
 import { useBackground } from '../background-context'
 import { useDB } from '../db-context'
 import { useFetched } from '../hooks/use-fetched'
@@ -11,21 +11,26 @@ type Props = {
   preloadedScores?: Score[]
 }
 
+type WorkerMessageHandler = (this: Worker, e: MessageEvent) => void
+
 export const Index: FunctionalComponent<Props> = ({ preloadedScores }) => {
   const db = useDB()
 
   const { state: scores, error, refetch } = useFetched(preloadedScores, async () => {
-    if (!db) { return preloadedScores }
+    if (!db) {
+      return preloadedScores
+    }
+
     return db.getAll('scores')
   }, [db])
 
   const bgWorker = useBackground()
 
-  const messageHandler = (e: MessageEvent) => {
+  const messageHandler: WorkerMessageHandler = useCallback(e => {
     if (e.data.type === 'scoresUpdated') {
       refetch()
     }
-  }
+  }, [refetch])
 
   useEffect(() => {
     if (bgWorker) {
@@ -37,7 +42,7 @@ export const Index: FunctionalComponent<Props> = ({ preloadedScores }) => {
   return (
     <Layout>
       <main>
-        <Switch hasDB={!!db} scores={scores} />
+        <Switch hasDB={!!db} scores={scores} error={error} />
       </main>
     </Layout>
   )
@@ -46,10 +51,13 @@ export const Index: FunctionalComponent<Props> = ({ preloadedScores }) => {
 type SwitchProps = {
   hasDB: boolean
   scores?: Score[]
+  error?: Error
 }
 
-const Switch: FunctionalComponent<SwitchProps> = ({ hasDB, scores }) => {
-  if (Array.isArray(scores)) {
+const Switch: FunctionalComponent<SwitchProps> = ({ hasDB, scores, error }) => {
+  if (error) {
+    return <div>error: {error.message}</div>
+  } else if (Array.isArray(scores)) {
     return <ScoresList scores={scores} />
   } else if (hasDB && !scores) {
     return <Fetching />

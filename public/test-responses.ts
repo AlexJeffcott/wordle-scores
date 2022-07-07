@@ -14,6 +14,16 @@ export const getAllInitialResponseBody = {
     'date': '2022-03-08',
     'word': 'sweet',
     'tries': ['corgi', 'pause', 'sleds', 'sweet']
+  }, {
+    'id': 261,
+    'date': '2022-03-07',
+    'word': 'nymph',
+    'tries': ['mommy']
+  }, {
+    'id': 260,
+    'date': '2022-03-06',
+    'word': 'sweet',
+    'tries': ['eerie']
   }]
 }
 
