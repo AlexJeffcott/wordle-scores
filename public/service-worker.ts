@@ -76,7 +76,7 @@ self.addEventListener('fetch', (e: FetchEvent) => {
         // NOTE: fallback to serving the index as our offline page… it should
         // do client-side routing and work fine…
         const fallback = await caches.match('/', { cacheName })
-        if (fallback) return fallback
+        if (fallback) { return fallback }
       }
 
       return new Response('error', {
